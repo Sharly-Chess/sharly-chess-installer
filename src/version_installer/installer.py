@@ -68,11 +68,6 @@ class VersionInstaller:
             tmp_dir = Path(_tmp_dir)
             downloaded_file = tmp_dir / cls._get_asset_name(version)
             set_progress(20)
-            set_status(
-                _(
-                    'Writing downloaded archive to [{path}]...'
-                ).format(path=downloaded_file)
-            )
             downloaded_file.write_bytes(response.content)
             set_progress(30)
 
@@ -81,7 +76,7 @@ class VersionInstaller:
                 # For Windows: Unzip the file to a tmp location
                 extract_dir = tmp_dir / f'sharly-chess-{version}'
                 set_status(
-                    _('Extracting archive to [{path}]...').format(path=extract_dir)
+                    _('Extracting archive...').format(path=extract_dir)
                 )
                 with zipfile.ZipFile(downloaded_file, 'r') as zip_ref:
                     zip_ref.extractall(extract_dir)
@@ -141,7 +136,7 @@ class VersionInstaller:
                 mount_point = tmp_dir / f'mount-{version}'
                 try:
                     set_status(
-                        _('Mounting DMG file to [{path}]...').format(path=mount_point)
+                        _('Mounting DMG file...').format(path=mount_point)
                     )
                     # Mount the DMG
                     subprocess.run(
@@ -200,7 +195,7 @@ class VersionInstaller:
         progress_end: int,
         avoid_path: Path | None = None,
     ):
-        set_status(_('Copying files to [{dst}]...').format(dst=dst_dir.absolute()))
+        set_status(_('Moving files to [{path}]...').format(path=dst_dir.absolute()))
         src_files = list(src_dir.glob('**/*'))
         step = len(src_files) // (progress_end - progress_start)
         progress = progress_start

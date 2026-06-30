@@ -15,5 +15,6 @@ readme = "README.md"
 dependencies = [
   "packaging ~= 26.2",
   "requests ~= 2.34.2",
+  "toga ~= 0.5.4",
   "tqdm ~= 4.68.3",
 ]
